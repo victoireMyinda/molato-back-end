@@ -1,6 +1,7 @@
 const express = require("express")
 
-const route = require("./route/route")
+const clientRoute = require("./route/clientRoute")
+const userRoute = require("./route/userRoute")
 
 const connectDB = require("./database/connexion")
 
@@ -16,7 +17,8 @@ app.use(express.urlencoded({ extended: false }))
 
 
 //route
-app.use("/", route)
+app.use("/api/client", clientRoute)
+app.use("api/user", userRoute)
 
 
 
