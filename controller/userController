@@ -1,4 +1,4 @@
-const clientModel = require("../model/models")
+const clientModel = require("../model/clientModel")
 
 
 //Creer un client

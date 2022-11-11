@@ -10,6 +10,7 @@ var clientModel = mongoose.Schema({
 
     prenom: {
         type: String,
+        required: [true, "champs obligatoire"]
 
     },
 
