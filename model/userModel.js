@@ -7,18 +7,9 @@ var userModel = mongoose.Schema({
         required: [true, "ce champs est obligatoire"]
     },
 
-    prenom: {
-        type: String,
-        required: [true, "ce champs est obligatoire"]
-    },
-
     nomEtablissement: {
         type: String,
         required: [true, "ce champs est obligatoire"]
-    },
-
-    contact: {
-        type: String,
     },
 
     motDePasse: {
@@ -29,5 +20,5 @@ var userModel = mongoose.Schema({
     timestamps: true
 })
 
-const UserModel = userModel.model("usermodel", userModel)
+const UserModel = mongoose.model("usermodel", userModel)
 module.exports = UserModel

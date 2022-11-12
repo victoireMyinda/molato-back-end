@@ -5,28 +5,23 @@ var clientModel = mongoose.Schema({
     nom: {
         type: String,
         required: [true, "champs obligatoire"]
-
     },
 
     prenom: {
         type: String,
         required: [true, "champs obligatoire"]
-
     },
 
     adresse: {
         type: String,
-
     },
 
     modele: {
         type: String,
-
     },
 
     contact: {
         type: String,
-
     },
 
     mesure: {
