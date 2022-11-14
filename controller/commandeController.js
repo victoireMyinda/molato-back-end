@@ -1,27 +1,41 @@
-const clientModel = require("../model/clientModel")
 const asyncHandler = require('express-async-handler')
+const commandeModel = require('../model/commandeModel')
 
 
-//Creer un client
-const createClient = asyncHandler(async(request, response) => {
 
-    // validate request
+//add commande
+const addCommande = asyncHandler((async(request, response) => {
+
     if (!request.body) {
         response.status(400).send({ message: "Content can not be emtpy!" });
         return;
     }
 
-    //new client
-    const createClient = new clientModel({
-        nom: request.body.nom,
-        prenom: request.body.prenom,
-        adresse: request.body.adresse,
-        contact: request.body.contact
+    //new commande
+    const createCommande = new commandeModel({
+        modele: request.body.modele,
+        prix: request.body.prix,
+        dateEnregistrement: request.body.dateEnregistrement,
+        dateLivraison: request.body.dateLivraison,
+        quantite: request.body.quantite,
+        id_client: request.body.id_client,
+        mesure: {
+            londDevant: request.londDevant,
+            epaul: request.body.epaul,
+            tourEncolure: request.body.tourEncolure,
+            tourPoitrine: request.body.tourPoitrine,
+            tourTaille: request.body.tourEncolure,
+            tourBassin: request.body.tourBassin,
+            carrureDos: request.body.carrureDos,
+            carrureDevant: request.body.carrureDevant,
+            longEpaule: request.body.longEpaule,
+            longBras: request.body.longBras
+        }
     })
 
-    // save client in the database
-    createClient
-        .save(createClient)
+    // save ccommande in database
+    createCommande
+        .save(createCommande)
         .then(data => {
             response.send(data)
             response.status(200)
@@ -31,16 +45,16 @@ const createClient = asyncHandler(async(request, response) => {
                 message: err.message || "Some error occurred while creating a create operation"
             });
         });
-})
+}))
 
 
-//recuperation des clients tous/un
-const findClient = asyncHandler(async(request, response) => {
+//find commande
+const findCommande = asyncHandler((async(request, response) => {
 
     if (request.query.id) {
         const id = request.query.id;
 
-        clientModel.findById(id)
+        commandeModel.findById(id)
             .then(data => {
                 if (!data) {
                     response.status(404).send({ message: "Not found user with id " + id })
@@ -54,7 +68,7 @@ const findClient = asyncHandler(async(request, response) => {
             })
 
     } else {
-        clientModel.find()
+        commandeModel.find()
             .then(client => {
                 response.send(client)
                 response.status(200)
@@ -63,10 +77,11 @@ const findClient = asyncHandler(async(request, response) => {
                 response.status(500).send({ message: err.message || "Error Occurred while retriving user information" })
             })
     }
-})
+}))
 
-//update client
-const updateClient = asyncHandler(async(request, response) => {
+//update commande
+const updateCommande = asyncHandler((async(request, response) => {
+
     if (!request.body) {
         return response
             .status(400)
@@ -74,7 +89,7 @@ const updateClient = asyncHandler(async(request, response) => {
     }
 
     const id = request.params.id;
-    clientModel.findByIdAndUpdate(id, request.body)
+    commandeModel.findByIdAndUpdate(id, request.body)
         .then(data => {
             if (!data) {
                 response.status(404).send({ message: `Cannot Update user with ${id}. Maybe user not found!` })
@@ -85,14 +100,14 @@ const updateClient = asyncHandler(async(request, response) => {
         .catch(err => {
             response.status(500).send({ message: "Error Update user information" })
         })
-})
+}))
 
 
-//deleteClient
-const deleteClient = asyncHandler(async(request, response) => {
+//delete commande
+const deleteCommande = asyncHandler((async(request, response) => {
     const id = request.params.id;
 
-    clientModel.findByIdAndDelete(id)
+    commandeModel.findByIdAndDelete(id)
         .then(data => {
             if (!data) {
                 response.status(404).send({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
@@ -107,7 +122,6 @@ const deleteClient = asyncHandler(async(request, response) => {
                 message: "Could not delete User with id=" + id
             });
         });
-})
+}))
 
-
-module.exports = { createClient, findClient, updateClient, deleteClient }
+module.exports = { addCommande, findCommande, updateCommande, deleteCommande }
