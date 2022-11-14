@@ -1,8 +1,9 @@
 const clientModel = require("../model/clientModel")
+const asyncHandler = require('express-async-handler')
 
 
 //Creer un client
-const createClient = async(request, response) => {
+const createClient = asyncHandler(async(request, response) => {
 
     // validate request
     if (!request.body) {
@@ -43,11 +44,11 @@ const createClient = async(request, response) => {
                 message: err.message || "Some error occurred while creating a create operation"
             });
         });
-}
+})
 
 
 //recuperation des clients tous/un
-const findClient = async(request, response) => {
+const findClient = asyncHandler(async(request, response) => {
 
     if (request.query.id) {
         const id = request.query.id;
@@ -75,11 +76,10 @@ const findClient = async(request, response) => {
                 response.status(500).send({ message: err.message || "Error Occurred while retriving user information" })
             })
     }
-}
-
+})
 
 //update client
-const updateClient = async(request, response) => {
+const updateClient = asyncHandler(async(request, response) => {
     if (!request.body) {
         return response
             .status(400)
@@ -98,11 +98,11 @@ const updateClient = async(request, response) => {
         .catch(err => {
             response.status(500).send({ message: "Error Update user information" })
         })
-}
+})
 
 
 //deleteClient
-const deleteClient = (request, response) => {
+const deleteClient = asyncHandler(async(request, response) => {
     const id = request.params.id;
 
     clientModel.findByIdAndDelete(id)
@@ -120,10 +120,7 @@ const deleteClient = (request, response) => {
                 message: "Could not delete User with id=" + id
             });
         });
-}
-
-
-
+})
 
 
 module.exports = { createClient, findClient, updateClient, deleteClient }
