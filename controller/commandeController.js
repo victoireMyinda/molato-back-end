@@ -103,11 +103,25 @@ const updateCommande = asyncHandler((async(request, response) => {
 }))
 
 
-
-
 //delete commande
 const deleteCommande = asyncHandler((async(request, response) => {
-    response.send({ message: "commande deleted" })
+    const id = request.params.id;
+
+    commandeModel.findByIdAndDelete(id)
+        .then(data => {
+            if (!data) {
+                response.status(404).send({ message: `Cannot Delete with id ${id}. Maybe id is wrong` })
+            } else {
+                response.send({
+                    message: "client was deleted successfully!"
+                })
+            }
+        })
+        .catch(err => {
+            response.status(500).send({
+                message: "Could not delete User with id=" + id
+            });
+        });
 }))
 
 module.exports = { addCommande, findCommande, updateCommande, deleteCommande }
