@@ -12,7 +12,7 @@ const commandeClient = mongoose.Schema({
     },
     dateEnregistrement: {
         type: Date,
-        required: [true, "champs requis"]
+
     },
     dateLivraison: {
         type: Date,
@@ -23,6 +23,27 @@ const commandeClient = mongoose.Schema({
     id_client: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'clientModel'
+    },
+    mesure: {
+        longDevant: { type: String },
+
+        epaul: { type: String },
+
+        tourEncolure: { type: String },
+
+        tourPoitrine: { type: String },
+
+        tourTaille: { type: String },
+
+        tourBassin: { type: String },
+
+        carrureDos: { type: String },
+
+        carrureDevant: { type: String },
+
+        longEpaule: { type: String },
+
+        longBras: { type: String }
     }
 
 }, {

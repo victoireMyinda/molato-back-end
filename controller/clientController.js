@@ -16,20 +16,7 @@ const createClient = asyncHandler(async(request, response) => {
         nom: request.body.nom,
         prenom: request.body.prenom,
         adresse: request.body.adresse,
-        modele: request.body.modele,
-        contact: request.body.contact,
-        mesure: {
-            londDevant: request.londDevant,
-            epaul: request.body.epaul,
-            tourEncolure: request.body.tourEncolure,
-            tourPoitrine: request.body.tourPoitrine,
-            tourTaille: request.body.tourEncolure,
-            tourBassin: request.body.tourBassin,
-            carrureDos: request.body.carrureDos,
-            carrureDevant: request.body.carrureDevant,
-            longEpaule: request.body.longEpaule,
-            longBras: request.body.longBras
-        }
+        contact: request.body.contact
     })
 
     // save client in the database

@@ -16,35 +16,9 @@ var clientModel = mongoose.Schema({
         type: String,
     },
 
-    modele: {
-        type: String,
-    },
-
     contact: {
         type: String,
     },
-
-    mesure: {
-        longDevant: { type: String },
-
-        epaul: { type: String },
-
-        tourEncolure: { type: String },
-
-        tourPoitrine: { type: String },
-
-        tourTaille: { type: String },
-
-        tourBassin: { type: String },
-
-        carrureDos: { type: String },
-
-        carrureDevant: { type: String },
-
-        longEpaule: { type: String },
-
-        longBras: { type: String }
-    }
 
 }, {
     timestamps: true

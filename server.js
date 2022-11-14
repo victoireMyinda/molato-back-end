@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }))
 //route
 app.use("/api/client", clientRoute)
 app.use("/api/user", userRoute)
-app.use("api/commande", commandeRoute)
+app.use("/api/commande", commandeRoute)
 
 
 
