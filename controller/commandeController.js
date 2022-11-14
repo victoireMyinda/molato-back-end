@@ -1,7 +1,10 @@
-const asynHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler')
 const commandeModel = require('../model/commandeModel')
 
-const addCommande = asynHandler((async(request, response) => {
+
+
+//add commande
+const addCommande = asyncHandler((async(request, response) => {
 
     if (!request.body) {
         response.status(400).send({ message: "Content can not be emtpy!" });
@@ -45,27 +48,43 @@ const addCommande = asynHandler((async(request, response) => {
 }))
 
 
+//find commande
+const findCommande = asyncHandler((async(request, response) => {
 
+    if (request.query.id) {
+        const id = request.query.id;
 
+        commandeModel.findById(id)
+            .then(data => {
+                if (!data) {
+                    response.status(404).send({ message: "Not found user with id " + id })
+                } else {
+                    response.send(data)
+                    response.status(200)
+                }
+            })
+            .catch(err => {
+                response.status(500).send({ message: "Erro retrieving user with id " + id })
+            })
 
-
-
-
-
-
-
-
-
-
-const findCommande = asynHandler((async(request, response) => {
-    response.send({ message: "commande finded" })
+    } else {
+        commandeModel.find()
+            .then(client => {
+                response.send(client)
+                response.status(200)
+            })
+            .catch(err => {
+                response.status(500).send({ message: err.message || "Error Occurred while retriving user information" })
+            })
+    }
 }))
 
-const updateCommande = asynHandler((async(request, response) => {
+//update commande
+const updateCommande = asyncHandler((async(request, response) => {
     response.send({ message: "commande updated" })
 }))
 
-const deleteCommande = asynHandler((async(request, response) => {
+const deleteCommande = asyncHandler((async(request, response) => {
     response.send({ message: "commande deleted" })
 }))
 
