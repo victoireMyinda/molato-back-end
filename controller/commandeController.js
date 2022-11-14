@@ -81,9 +81,31 @@ const findCommande = asyncHandler((async(request, response) => {
 
 //update commande
 const updateCommande = asyncHandler((async(request, response) => {
-    response.send({ message: "commande updated" })
+
+    if (!request.body) {
+        return response
+            .status(400)
+            .send({ message: "Data to update can not be empty" })
+    }
+
+    const id = request.params.id;
+    commandeModel.findByIdAndUpdate(id, request.body)
+        .then(data => {
+            if (!data) {
+                response.status(404).send({ message: `Cannot Update user with ${id}. Maybe user not found!` })
+            } else {
+                response.send(data)
+            }
+        })
+        .catch(err => {
+            response.status(500).send({ message: "Error Update user information" })
+        })
 }))
 
+
+
+
+//delete commande
 const deleteCommande = asyncHandler((async(request, response) => {
     response.send({ message: "commande deleted" })
 }))
